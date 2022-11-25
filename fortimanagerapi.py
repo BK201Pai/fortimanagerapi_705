@@ -28,5 +28,14 @@ class FortiManager:
         req = self.s.post(self.url, json=payload, verify=False)
         return req
 
-    def getAllTask():
-        generatePayloadRequest("get", "/task/task", {})
+    def getAllTask(self, id=1, data={}):
+        req = self.generatePayloadRequest("get", "/task/task", data, id)
+        print(f"return status {req.status_code}")
+        app = json.loads(req.text)
+        return app['data']
+
+    def getTaskByID(self, id=1, data={}):
+        req = self.generatePayloadRequest("get", f"/task/task/{id}", data, id)
+        print(f"return status {req.status_code}")
+        app = json.loads(req.text)
+        return app['data']
