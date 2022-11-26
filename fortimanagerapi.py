@@ -28,7 +28,6 @@ class FortiManager:
         return req
 
     def getAllTask(self, id=1, data={}):
-        print(f"return status {req.status_code}")
         req = self.generatePayloadRequest("get", "/task/task", json.dumps(data), id)
         app = json.loads(req.text)
         return app['result']
