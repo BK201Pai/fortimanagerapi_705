@@ -22,19 +22,18 @@ class FortiManager:
         req = self.s.post(self.url, json=payload, verify=False)
         return req.status_code
 
-    def generatePayloadRequest(self, method, url, data, id=1):
-        payload = {"method": method, "params": [{"url": url, "data": data}], "id": id, "session": self.tknSession}
+    def generatePayloadRequest(self, method, url, params={}, id=1):
+        payload = {"method": method, "params": [{"url": url, json.dumps(params)}], "id": id, "session": self.tknSession}
         req = self.s.post(self.url, json=payload, verify=False)
         return req
 
     def getAllTask(self, id=1, data={}):
-        req = self.generatePayloadRequest("get", "/task/task", data, id)
         print(f"return status {req.status_code}")
+        req = self.generatePayloadRequest("get", "/task/task", json.dumps(data), id)
         app = json.loads(req.text)
         return app['result']
 
     def getTaskByID(self, TaskID, id=1, data={}):
         req = self.generatePayloadRequest("get", f"/task/task/{TaskID}", data, id)
-        print(f"return status {req.status_code}")
         app = json.loads(req.text)
         return app['result']
