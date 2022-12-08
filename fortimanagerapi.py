@@ -63,7 +63,7 @@ class FortiManager:
         app = json.loads(req.text)
         return app['result']
 
-    #Sets a param for selected device
+    #Sets a param for selected device // uses method set use with caution
     #All settings to change must be inside the data dict
     #name is the name of the device
     def setDeviceParam(self, name: str, data: dict={}, id: int=1):
